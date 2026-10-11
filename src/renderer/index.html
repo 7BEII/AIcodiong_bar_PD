@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quota Pulse</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Manual Quota Tracker</p>
+          <h1>Quota Pulse</h1>
+          <p class="subtitle">不登录，纯手动录入，帮你盯住两个账号的周额度和 5 小时额度。</p>
+        </div>
+        <div class="hero-badge">2 Accounts</div>
+      </header>
+
+      <nav class="tabs" id="tabs"></nav>
+      <main id="panels"></main>
+    </div>
+
+    <template id="panel-template">
+      <section class="panel">
+        <div class="panel-top">
+          <div>
+            <p class="panel-label">Account</p>
+            <h2 class="panel-name"></h2>
+          </div>
+          <div class="countdown-card">
+            <span class="countdown-label">下次 5 小时重置</span>
+            <strong class="countdown-value">等待配置</strong>
+          </div>
+        </div>
+
+        <section class="status-grid">
+          <article class="meter-card">
+            <div class="meter-header">
+              <span>周额度</span>
+              <strong class="weekly-used">0 / 0</strong>
+            </div>
+            <div class="meter-bar">
+              <span class="weekly-bar"></span>
+            </div>
+            <div class="meter-footer">
+              <span class="weekly-remaining">剩余 0</span>
+              <span class="weekly-reset">周重置未开始</span>
+            </div>
+          </article>
+
+          <article class="meter-card">
+            <div class="meter-header">
+              <span>5 小时额度</span>
+              <strong class="window-used">0 / 0</strong>
+            </div>
+            <div class="meter-bar">
+              <span class="window-bar"></span>
+            </div>
+            <div class="meter-footer">
+              <span class="window-remaining">剩余 0</span>
+              <span class="window-status">待机中</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h3>基础配置</h3>
+            <p>第一次打开先填这里，后面可以随时改。</p>
+          </div>
+          <form class="config-form">
+            <label>
+              <span>账号名</span>
+              <input name="name" type="text" maxlength="40" />
+            </label>
+            <label>
+              <span>周额度总量</span>
+              <input name="weeklyLimit" type="number" min="0" step="1" />
+            </label>
+            <label>
+              <span>5 小时额度总量</span>
+              <input name="windowLimit" type="number" min="0" step="1" />
+            </label>
+            <label>
+              <span>窗口时长（小时）</span>
+              <input name="windowHours" type="number" min="1" step="1" />
+            </label>
+            <button type="submit" class="primary-button">保存配置</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h3>手动同步</h3>
+            <p>如果你看到了官方界面剩余额度，直接填进来，系统会自动算减少了多少。</p>
+          </div>
+          <form class="sync-form">
+            <label>
+              <span>当前周剩余</span>
+              <input name="weeklyRemaining" type="number" min="0" step="1" />
+            </label>
+            <label>
+              <span>当前 5 小时剩余</span>
+              <input name="windowRemaining" type="number" min="0" step="1" />
+            </label>
+            <label>
+              <span>周重置时间</span>
+              <input name="weeklyResetAt" type="datetime-local" />
+            </label>
+            <label class="wide">
+              <span>备注</span>
+              <input name="reason" type="text" maxlength="60" placeholder="比如：刚刷完一次大任务" />
+            </label>
+            <button type="submit" class="secondary-button">同步剩余额度</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h3>快捷操作</h3>
+            <p>“用完了”一键扣减，适合你说的那种轮着用的场景。</p>
+          </div>
+          <div class="actions">
+            <button type="button" class="danger-button action-consume">本轮 5 小时已用完</button>
+            <button type="button" class="ghost-button action-reset-window">手动重置 5 小时</button>
+            <button type="button" class="ghost-button action-reset-week">手动重置周额度</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="section-head">
+            <h3>最近记录</h3>
+            <p>看每次同步、扣减和重置发生了什么。</p>
+          </div>
+          <div class="history"></div>
+        </section>
+      </section>
+    </template>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

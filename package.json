@@ -1,0 +1,12 @@
+{
+  "name": "aicodiong-bar-pd",
+  "version": "0.1.0",
+  "description": "Manual desktop quota tracker for multiple Codex/GPT accounts.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^38.3.0"
+  }
+}
